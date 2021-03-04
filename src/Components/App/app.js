@@ -8,7 +8,16 @@ import PersonDetails from '../person-details/person-details';
 
 import './app.css';
 
-const App = () => {
+export default class App extends React.Component {
+  state = {
+    selectedPerson: 5
+  }
+
+  onPersonSelected = (id) => {
+    this.setState({selectedPerson: id})
+  }
+
+  render () {
   return (
     <div>
       <Header />
@@ -16,14 +25,14 @@ const App = () => {
 
       <div className="row mb2 app">
         <div className="col-md-6">
-          <ItemList />
+          <ItemList onItemSelected={this.onPersonSelected}/>
         </div>
         <div className="col-md-6">
-          <PersonDetails />
+          <PersonDetails personId={this.state.selectedPerson}/>
         </div>
       </div>
     </div>
   );
 };
+}
 
-export default App;

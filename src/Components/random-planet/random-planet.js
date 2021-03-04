@@ -5,10 +5,10 @@ import Spinner from "../Spinner/spinner";
 import "./random-planet.css";
 
 export default class RandomPlanet extends Component {
-  constructor() {
-    super();
+
+  componentDidMount() {
     this.updatePlanet();
-    this.interval = setInterval(this.updatePlanet, 3000);
+    this.interval = setInterval(this.updatePlanet, 10000);
   }
 
   swapiService = new SwapiService();
