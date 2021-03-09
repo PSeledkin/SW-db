@@ -17,6 +17,11 @@ export default class RandomPlanet extends Component {
     loading: true,
     error: false
   };
+
+  componentWillUnmount () {
+    clearInterval(this.interval);
+  }
+
   onPlanetLoaded = (planet) => {
     this.setState({ planet, loading: false });
   };
@@ -31,8 +36,6 @@ export default class RandomPlanet extends Component {
   }
   render() {
     const { planet, loading, error } = this.state;
-    const hasData = !(loading || error);
-
     const errorMessage = error ? <ErrorIndicator/> : null;
     const spinner = loading ? <Spinner/> : null;
     const content = !(loading || error) ? <PlanetView planet={planet}/> : null;
@@ -53,6 +56,7 @@ const PlanetView = ({ planet }) => {
       <img
         className="planet-image"
         src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
+        alt={name}
       />
       <div>
         <h4>{name}</h4>

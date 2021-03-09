@@ -1,44 +1,48 @@
+import React, { Component } from "react";
+import SwapiService from "../../Services/swapi-service";
 
-import React, { Component } from 'react';
-import SwapiService from '../../Services/swapi-service';
 
-import './person-details.css';
+import "./person-details.css";
 
 export default class PersonDetails extends Component {
   swapiService = new SwapiService();
 
   state = {
-    person: null
+    person: null,
+  };
+  componentDidMount() {
+    this.updatePerson();
   }
- componentDidMount() {
-   this.updatePerson();
- }
- componentDidUpdate(prevProps) {
-   if(this.props.personId !== prevProps.personId) {
-     this.updatePerson();
-   }
- }
-  updatePerson () {
-    const {personId} = this.props;
+  componentDidUpdate(prevProps) {
+    if (this.props.personId !== prevProps.personId) {
+      this.updatePerson();
+    }
+  }
+  updatePerson() {
+    const { personId } = this.props;
     if (!personId) {
       return;
     }
-    this.swapiService.getPerson(personId).then(
-      (person) => this.setState({person})
-    )
+    this.swapiService
+      .getPerson(personId)
+      .then((person) => this.setState({ person }));
   }
-
 
   render() {
     if (!this.state.person) {
-      return (<span>Select a person from a list</span>)
+      return <span>Select a person from a list</span>;
     }
 
-    const {person : {id, name, gender, birthYear, eyeColor}} = this.state;
+    const {
+      person: { id, name, gender, birthYear, eyeColor },
+    } = this.state;
     return (
       <div className="person-details card">
-        <img className="person-image"
-          src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} />
+        <img
+          className="person-image"
+          src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
+          alt={name}
+        />
 
         <div className="card-body">
           <h4>{name}</h4>
@@ -58,6 +62,6 @@ export default class PersonDetails extends Component {
           </ul>
         </div>
       </div>
-    )
+    );
   }
 }

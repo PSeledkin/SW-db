@@ -1,38 +1,40 @@
+import React from "react";
 
-import React from 'react';
-
-import Header from '../header/header';
-import RandomPlanet from '../random-planet/random-planet';
-import ItemList from '../item-list/item-list';
-import PersonDetails from '../person-details/person-details';
-
-import './app.css';
+import Header from "../header/header";
+import RandomPlanet from "../random-planet/random-planet";
+import PeoplePage from "../people-page/people-page";
+import "./app.css";
 
 export default class App extends React.Component {
   state = {
-    selectedPerson: 5
+    showRandomPlanet: true,
+  };
+
+  onTogglePlanet  = () => {
+    this.setState((state) => {
+      return {
+        showRandomPlanet: !state.showRandomPlanet,
+      };
+    });
   }
 
-  onPersonSelected = (id) => {
-    this.setState({selectedPerson: id})
-  }
+  render() {
 
-  render () {
-  return (
-    <div>
-      <Header />
-      <RandomPlanet />
-
-      <div className="row mb2 app">
-        <div className="col-md-6">
-          <ItemList onItemSelected={this.onPersonSelected}/>
+    const planet = this.state.showRandomPlanet ? <RandomPlanet/> : null;
+    return (
+      <div>
+        <Header />
+        {planet}
+        <div className="row mb2 button-row">
+          <button
+            className="toggle-planet btn btn-warning btn-lg"
+            onClick={this.onTogglePlanet}
+          >
+            Toggle Random Planet
+          </button>
         </div>
-        <div className="col-md-6">
-          <PersonDetails personId={this.state.selectedPerson}/>
-        </div>
+        <PeoplePage />
       </div>
-    </div>
-  );
-};
+    );
+  }
 }
-
