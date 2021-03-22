@@ -11,6 +11,7 @@ const PersonDetails = (props) => {
   );
 };
 
+
 const mapMethodsToProps = (swapiService) => {
   return {
     getData: swapiService.getPerson,
@@ -18,5 +19,5 @@ const mapMethodsToProps = (swapiService) => {
   }
 };
 
-export default withSwapiService(PersonDetails, mapMethodsToProps);
+export default withSwapiService(mapMethodsToProps)(PersonDetails);
 

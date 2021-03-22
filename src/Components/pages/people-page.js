@@ -1,14 +1,11 @@
 import React, { Component } from "react";
-import "../people-page/people-page.css";
-import SwapiService from "../../Services/swapi-service";
 import Row from "../row/row";
 import ErrorBoundry from "../error-bounry/error-boundry";
 import {PersonList} from "../sw-components/item-lists"
-import PersonDetails from "../sw-components/details"
+import PersonDetails from "../sw-components/person-details"
 
 export default class PeoplePage extends Component {
-  swapiService = new SwapiService();
-  state = {
+   state = {
     selectedPerson: null,
   };
 
@@ -17,10 +14,9 @@ export default class PeoplePage extends Component {
   };
 
   render() {
-    const { getAllPeople, getPerson, getPersonImage } = this.swapiService;
-    const itemList = (
+        const itemList = (
       <ErrorBoundry>
-        <PersonList onItemSelected={this.onPersonSelected} getData={getAllPeople}/>
+        <PersonList onItemSelected={this.onPersonSelected}/>
       </ErrorBoundry>
     );
 
