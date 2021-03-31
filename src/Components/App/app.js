@@ -8,6 +8,8 @@ import SwapiService from "../../Services/swapi-service";
 import DummySwapiService from "../../Services/dummy-swapi-service";
 import PlanetPage from "../pages/planet-page";
 import StarshipPage from "../pages/starship-page"
+import {BrowserRouter as Router, Route} from "react-router-dom"
+import StarshipDetails from "../sw-components/starship-details"
 
 export default class App extends React.Component {
   state = {
@@ -39,6 +41,7 @@ export default class App extends React.Component {
     return (
       <div>
         <SwapiServiceProvider value={this.state.swapiService}>
+          <Router>
           <Header onServiceChange={this.onServiceChange} />
           {planet}
           <div className="row mb2 button-row">
@@ -49,9 +52,14 @@ export default class App extends React.Component {
               Toggle Random Planet
             </button>
           </div>
-          <PeoplePage />
-          <PlanetPage/>
-          <StarshipPage/>
+          <Route path="/" render={()=> <h2>Welcome to Star Wars DB</h2>} exact={true}/>
+          <Route path="/people" component={PeoplePage}/>
+          <Route path="/planets" component={PlanetPage}/>
+          <Route path="/starships" component={StarshipPage} exact={true}/>
+          <Route path="/starships/:id" render={({match})=> {
+            const {id} = match.params;
+            return <StarshipDetails itemId={id}/>}} />
+          </Router>
         </SwapiServiceProvider>
       </div>
     );

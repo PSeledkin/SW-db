@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import SwapiService from "../../Services/swapi-service";
 import ErrorIndicator from "../error-indicator/error-indicator";
 import Spinner from "../Spinner/spinner";
@@ -53,13 +54,7 @@ RandomPlanet.defaultProps = {
   updateInterval: 10000
 }
  RandomPlanet.propTypes = {
-   updateInterval: (props, propName, componentName) => {
-     const value = props[propName];
-     if (typeof value === "number" && !isNaN(value)) {
-       return null;
-     }
-     return new Error (`${componentName} : ${propName} must be a number`)
-   }
+   updateInterval: PropTypes.number
  }
 const PlanetView = ({ planet }) => {
   const { id, name, population, rotationPeriod, diameter } = planet;
